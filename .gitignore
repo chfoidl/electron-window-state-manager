@@ -1,0 +1,12 @@
+# Directories
+build
+logs
+node_modules
+.npm
+.node_repl_history
+
+# Files
+.DS_Store
+.thumbs_db
+npm-debug.log*
+*.log
