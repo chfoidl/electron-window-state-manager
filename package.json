@@ -1,6 +1,6 @@
 {
   "name": "electron-window-state-manager",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Window-state manager for electron",
   "main": "main.js",
   "scripts": {
@@ -9,6 +9,10 @@
   "keywords": [
     "electron"
   ],
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/Sethorax/electron-window-state-manager.git"
+  },
   "author": "sethorax",
   "license": "MIT",
   "dependencies": {
