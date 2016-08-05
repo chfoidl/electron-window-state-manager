@@ -6,56 +6,56 @@ const jetpack = require('fs-jetpack');
 const appRoot = require('app-root-path');
 
 var getAppDataPath = () => {
-    let appDataPath;
+	let appDataPath;
 
-    switch (os.platform()) {
-        case 'darwin':
-            appDataPath = 'Library/Application Support/';
-            break;
+	switch (os.platform()) {
+		case 'darwin':
+			appDataPath = 'Library/Application Support/';
+			break;
 
-        case 'linux':
-            appDataPath = '.config';
-            break;
+		case 'linux':
+			appDataPath = '.config';
+			break;
 
-        case 'win32':
-            appDataPath = 'AppData\\Roaming';
-            break;
-    }
+		case 'win32':
+			appDataPath = 'AppData\\Roaming';
+			break;
+	}
 
-    return path.join(os.homedir(), appDataPath);
+	return path.join(os.homedir(), appDataPath);
 };
 
 var getManifestData = () => {
-    let manifest = jetpack.read(path.join(appRoot.toString(), 'package.json'), 'json');
+	let manifest = jetpack.read(path.join(appRoot.toString(), 'package.json'), 'json');
 
-    return manifest;
+	return manifest;
 };
 
 var checkExistingKeys = (object, keys) => {
-    let noKeyMissing = true;
+	let noKeyMissing = true;
 
-    for (let val of keys) {
-        if (typeof object[val] === 'undefined') noKeyMissing = false;
-    }
+	for (let val of keys) {
+		if (typeof object[val] === 'undefined') noKeyMissing = false;
+	}
 
-    return noKeyMissing;
+	return noKeyMissing;
 };
 
 var getKeyIndex = (array, name) => {
-    var found = false;
+	var found = false;
 
-    for (var i = 0; i < array.length; i++) {
-        if (Object.keys(array[i])[0] === name) {
-            found = true;
-            break;
-        }
-    }
+	for (var i = 0; i < array.length; i++) {
+		if (Object.keys(array[i])[0] === name) {
+			found = true;
+			break;
+		}
+	}
 
-    if (found) {
-        return i;
-    } else {
-        return false;
-    }
+	if (found) {
+		return i;
+	} else {
+		return false;
+	}
 };
 
 module.exports.getAppDataPath = getAppDataPath;
