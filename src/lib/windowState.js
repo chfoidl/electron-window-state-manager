@@ -1,5 +1,6 @@
 'use strict';
 
+const electron = require('electron');
 const path = require('path');
 const jetpack = require('fs-jetpack');
 const checkState = require('./checkState');
@@ -61,8 +62,19 @@ module.exports = class WindowStateManager {
 	}
 
 	_checkState() {
-		if(!this._isInitialized) {
+		if (!this._isInitialized) {
+			var _this = this;
 			let state = checkState.sync(this._name, stateFile, this._defaultWidth, this._defaultHeight);
+
+			this._checkWindowPosition(state, function() {
+				let primaryDisplayBounds = electron.screen.getPrimaryDisplay().bounds;
+
+				state.width = _this._defaultWidth;
+				state.height = _this._defaultHeight;
+				state.x = (primaryDisplayBounds.width - _this._defaultWidth) / 2;
+				state.y = (primaryDisplayBounds.height - _this._defaultHeight) / 2;
+			});
+
 			this._width = state.width;
 			this._height = state.height;
 			this._x = state.x;
@@ -71,5 +83,44 @@ module.exports = class WindowStateManager {
 
 			this._isInitialized = true;
 		}
+	}
+
+	_checkWindowPosition(state, callback) {
+		var allDisplays = electron.screen.getAllDisplays(),
+			primaryDisplay = electron.screen.getPrimaryDisplay(),
+			inBounds = false;
+
+		//Check if window is in bounds of primary display
+		if (state.x >= 0 && state.y >= 0 && state.x < primaryDisplay.bounds.width && state.y < primaryDisplay.bounds.height) {
+			inBounds = true;
+		} else {
+			//Window is not in bounds of primary display; Let's check if it is on external displays
+			var externalDisplays = allDisplays.find((display) => {
+				return display.bounds.x !== 0 || display.bounds.y !== 0;
+			});
+
+			//Check if there are external displays present
+			if (externalDisplays) {
+				//Create an array if it is a single display
+				if (typeof externalDisplays.length === 'undefined') {
+					let singleExternal = externalDisplays;
+					externalDisplays = [];
+					externalDisplays.push(singleExternal);
+				}
+
+				//Iterate over each display
+				for (let i = 0; i < externalDisplays.length; i++) {
+					let display = externalDisplays[i];
+
+					//Check if window is in bounds of this external display
+					if (state.x >= display.bounds.x && state.y >= display.bounds.y && state.x < (display.bounds.x + display.bounds.width) && state.y < (display.bounds.y + display.bounds.height)) {
+						inBounds = true;
+					}
+				}
+			}
+		}
+
+		if (!inBounds)
+			callback();
 	}
 };
