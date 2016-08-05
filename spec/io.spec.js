@@ -1,7 +1,9 @@
 'use strict';
 
-const WindowStateManager = require('../');
+const proxyquire = require('proxyquire');
+const stubs = require('./helpers/stubs.js');
 const PseudoBrowserWindow = require('./helpers/pseudoBrowserWindow');
+const WindowStateManager = proxyquire('../main.js', stubs.electron().screenRight);
 
 describe('IO', () => {
 	var name = 'testWindowIO';
