@@ -94,7 +94,7 @@ module.exports = class WindowStateManager {
 		if (state.x >= 0 && state.y >= 0 && state.x < primaryDisplay.bounds.width && state.y < primaryDisplay.bounds.height) {
 			inBounds = true;
 		} else {
-			//Window is not in bounds of primary display; Let's check if it is on external displays
+			//Find all external displays
 			var externalDisplays = allDisplays.find((display) => {
 				return display.bounds.x !== 0 || display.bounds.y !== 0;
 			});
