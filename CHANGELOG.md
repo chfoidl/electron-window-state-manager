@@ -1,3 +1,8 @@
+## v0.3.1
+**Bugfixes**:
+
+- Fixed a bug, where the application crashed when loading a currupt window states json file
+
 ## v0.3.0
 **Features**:
 

@@ -1,6 +1,6 @@
 {
   "name": "electron-window-state-manager",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Window-state manager for electron",
   "main": "main.js",
   "scripts": {
