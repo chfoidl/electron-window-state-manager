@@ -4,7 +4,6 @@ const electron = require('electron');
 const path = require('path');
 const jetpack = require('fs-jetpack');
 const checkState = require('./checkState');
-const loadState = require('./loadState');
 const saveState = require('./saveState');
 const utils = require('../utils/utils');
 
