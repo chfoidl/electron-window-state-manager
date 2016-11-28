@@ -6,7 +6,11 @@ var sync = (stateFile) => {
 	if (!jetpack.exists(stateFile)) {
 		return {states: []};
 	} else {
-		return jetpack.read(stateFile, 'json');
+        try {
+		    return jetpack.read(stateFile, 'json');
+        } catch (e) {
+            return {states: []};
+        }
 	}
 };
 

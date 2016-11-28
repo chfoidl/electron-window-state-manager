@@ -1,14 +1,31 @@
 'use strict';
 
+const path = require('path');
+const jetpack = require('fs-jetpack');
 const proxyquire = require('proxyquire');
 const stubs = require('./helpers/stubs.js');
 const PseudoBrowserWindow = require('./helpers/pseudoBrowserWindow');
 const WindowStateManager = proxyquire('../main.js', stubs.electron().screenRight);
+const utils = require('../src/utils/utils.js');
+
+const stateFile = path.join(utils.getAppDataPath(), utils.getManifestData().name, 'windowStates.json');
 
 describe('IO', () => {
 	var name = 'testWindowIO';
 	var defaultWidth = 1024;
 	var defaultHeight = 768;
+
+	it("should handle emtpy file correctly", () => {
+		let wsm = new WindowStateManager(name, {
+			defaultWidth: 900,
+			defaultHeight: 500
+		});
+
+		jetpack.write(stateFile, '+### Weird corrupted Json ..1!"2');
+
+		expect(wsm.width).toBe(900);
+		expect(wsm.height).toBe(500);
+	});
 
 	it("should save the state", () => {
 		let wsm = new WindowStateManager(name, {

@@ -57,19 +57,23 @@ var sync = (name, stateFile, defaultWidth, defaultHeight) => {
 	if(!jetpack.exists(stateFile)) {
 		state = setDefaultValues(state, defaultWidth, defaultHeight);
 	} else {
-		var savedState = jetpack.read(stateFile, 'json');
-		var singleState = savedState.states[utils.getKeyIndex(savedState.states, name)];
+		try {
+			var savedState = jetpack.read(stateFile, 'json');
+			var singleState = savedState.states[utils.getKeyIndex(savedState.states, name)];
 
-		if (typeof singleState !== 'undefined' && singleState !== null) {
-			let savedName = Object.keys(singleState)[0];
-			let secureState = checkSavedValues(singleState[savedName], defaultWidth, defaultHeight);
+			if (typeof singleState !== 'undefined' && singleState !== null) {
+				let savedName = Object.keys(singleState)[0];
+				let secureState = checkSavedValues(singleState[savedName], defaultWidth, defaultHeight);
 
-			state.width = secureState.dimensions.width;
-			state.height = secureState.dimensions.height;
-			state.x = secureState.positions.x;
-			state.y = secureState.positions.y;
-			state.maximized = secureState.windowState.maximized;
-		} else {
+				state.width = secureState.dimensions.width;
+				state.height = secureState.dimensions.height;
+				state.x = secureState.positions.x;
+				state.y = secureState.positions.y;
+				state.maximized = secureState.windowState.maximized;
+			} else {
+				state = setDefaultValues(state, defaultWidth, defaultHeight);
+			}
+		} catch (e) {
 			state = setDefaultValues(state, defaultWidth, defaultHeight);
 		}
 	}
