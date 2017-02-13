@@ -5,9 +5,8 @@ const path = require('path');
 const jetpack = require('fs-jetpack');
 const checkState = require('./checkState');
 const saveState = require('./saveState');
-const utils = require('../utils/utils');
 
-const stateFile = path.join(utils.getAppDataPath(), utils.getManifestData().name, 'windowStates.json');
+const stateFile = path.join(electron.app.getPath('appData'), electron.app.getName(), 'windowStates.json');
 
 module.exports = class WindowStateManager {
 
