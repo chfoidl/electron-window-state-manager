@@ -1,3 +1,9 @@
+## v0.3.2
+**Changes**:
+
+- Merged hkuclion pull request so that the app data path and the app name is retreived via electron's native functions rather than via the manifest file.
+- Adjusted unit tests to work with this change
+
 ## v0.3.1
 **Bugfixes**:
 

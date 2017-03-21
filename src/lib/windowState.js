@@ -8,8 +8,8 @@ const saveState = require('./saveState');
 
 const stateFile = path.join(electron.app.getPath('appData'), electron.app.getName(), 'windowStates.json');
 
-module.exports = class WindowStateManager {
 
+module.exports = class WindowStateManager {
 	constructor(name, options) {
 		this._isInitialized = false;
 

@@ -1,10 +1,26 @@
 'use strict';
 
+const utils = require('../utils/utils');
+
+
+var baseStub = {
+	app: {
+		getPath: (type) => {
+			if (type === 'appData') {
+				return utils.getAppDataPath();
+			}
+		},
+		getName: () => {
+			return utils.getManifestData().name
+		},
+	}
+};
+
 module.exports = {
-	electron: function () {
+	electron: () => {
 		return {
 			screenRight: {
-				electron: {
+				electron: Object.assign({
 					screen: {
 						getPrimaryDisplay: function () {
 							return {
@@ -42,11 +58,11 @@ module.exports = {
 					},
 					'@global': true,
 					'@noCallThru': true
-				}
+				}, baseStub)
 			},
 
 			screenLeft: {
-				electron: {
+				electron: Object.assign({
 					screen: {
 						getPrimaryDisplay: function () {
 							return {
@@ -84,11 +100,11 @@ module.exports = {
 					},
 					'@global': true,
 					'@noCallThru': true
-				}
+				}, baseStub)
 			},
 
 			screenTop: {
-				electron: {
+				electron: Object.assign({
 					screen: {
 						getPrimaryDisplay: function () {
 							return {
@@ -126,11 +142,11 @@ module.exports = {
 					},
 					'@global': true,
 					'@noCallThru': true
-				}
+				}, baseStub)
 			},
 
 			screenBottom: {
-				electron: {
+				electron: Object.assign({
 					screen: {
 						getPrimaryDisplay: function () {
 							return {
@@ -168,11 +184,11 @@ module.exports = {
 					},
 					'@global': true,
 					'@noCallThru': true
-				}
+				}, baseStub)
 			},
 
 			tripleMonitor: {
-				electron: {
+				electron: Object.assign({
 					screen: {
 						getPrimaryDisplay: function () {
 							return {
@@ -220,7 +236,7 @@ module.exports = {
 					},
 					'@global': true,
 					'@noCallThru': true
-				}
+				}, baseStub)
 			}
 		};
 	}
