@@ -1,4 +1,4 @@
-# electron-window-state-manager [![Build Status](https://travis-ci.org/Sethorax/electron-window-state-manager.svg?branch=master)](https://travis-ci.org/Sethorax/electron-window-state-manager)
+# electron-window-state-manager [![Build Status](https://travis-ci.org/Sethorax/electron-window-state-manager.svg?branch=master)](https://travis-ci.org/Sethorax/electron-window-state-manager) [![Build status](https://ci.appveyor.com/api/projects/status/eude9rmxi0oi1pe8/branch/master?svg=true)](https://ci.appveyor.com/project/Sethorax/electron-window-state-manager/branch/master)
 
 The Electron Window State Manager is a small package that gives you the ability to save the state of a `BrowserWindow` and retreive the saved data of the state later.
 
