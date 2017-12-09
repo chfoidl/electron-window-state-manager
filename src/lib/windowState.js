@@ -16,6 +16,8 @@ module.exports = class WindowStateManager {
 		this._name = name;
 		this._defaultWidth = options.defaultWidth;
 		this._defaultHeight = options.defaultHeight;
+		this._defaultX = options.defaultX;
+		this._defaultY = options.defaultY;
 	}
 
 	get name() {
@@ -69,8 +71,8 @@ module.exports = class WindowStateManager {
 
 				state.width = _this._defaultWidth;
 				state.height = _this._defaultHeight;
-				state.x = (primaryDisplayBounds.width - _this._defaultWidth) / 2;
-				state.y = (primaryDisplayBounds.height - _this._defaultHeight) / 2;
+				state.x = _this._defaultX || (primaryDisplayBounds.width - _this._defaultWidth) / 2;
+				state.y = _this._defaultY || (primaryDisplayBounds.height - _this._defaultHeight) / 2;
 			});
 
 			this._width = state.width;
